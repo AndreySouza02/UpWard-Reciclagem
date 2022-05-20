@@ -3,6 +3,7 @@ package paineis;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -10,13 +11,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import classes.Coleta;
+import classes.ColetaPropria;
+
 public class PainelPropria extends JPanel {
 	private JLabel jlPropria, jlData, jlCEP, jlLocal;
 	private JTextField jtfData, jtfCEP, jtfLocal;
 	private JButton jbCadastrar;
+	private List<Coleta> coleta;
 	
-	public PainelPropria() {
+	public PainelPropria(List<Coleta> coleta) {
 		super();
+		this.coleta = coleta;
 		setSize(400, 400);
 		setLayout(null);
 		setBackground(Color.red.brighter());
@@ -65,6 +71,7 @@ public class PainelPropria extends JPanel {
 				data = jtfData.getText();
 				cep = jtfCEP.getText();
 				local = jtfLocal.getText();
+				coleta.add(new ColetaPropria(tipo, data, cep, local));
 			} else {
 				JOptionPane.showMessageDialog(null, "Preencha todos os campos", "UpWard Reciclagem",
 						JOptionPane.ERROR_MESSAGE);

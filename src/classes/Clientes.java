@@ -1,6 +1,8 @@
 package classes;
 
-public abstract class Clientes {
+import java.io.Serializable;
+
+public abstract class Clientes implements Serializable {
 	protected String nome, local, contrato, telefone, cep;
 
 	public Clientes(String nome, String local, String contrato, String telefone, String cep) {
@@ -13,7 +15,7 @@ public abstract class Clientes {
 	}
 
 	public String mostrarDados() {
-		return "Nome: " + this.nome +
+		return "\n\nNome: " + this.nome +
 				"\nEndereço: " + this.local +
 				"\nTipo de contrato: " + this.contrato +
 				"\nTelefone: " + this.telefone +

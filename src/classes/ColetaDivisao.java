@@ -8,5 +8,13 @@ public class ColetaDivisao extends Coleta{
 		this.notaFiscal = notaFiscal;
 	}
 
+	@Override
+	public String mostrarDados() {
+		// TODO Auto-generated method stub
+		return super.mostrarDados() + "\nNota fiscal: " + this.notaFiscal;
+	}
+	
+	
+
 	
 }

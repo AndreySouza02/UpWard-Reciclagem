@@ -8,5 +8,13 @@ public class ColetaServico extends Coleta{
 		this.contratante = contratante;
 	}
 
+	@Override
+	public String mostrarDados() {
+		// TODO Auto-generated method stub
+		return super.mostrarDados() + "\nContratante: " + this.contratante;
+	}
+	
+	
+
 	
 }

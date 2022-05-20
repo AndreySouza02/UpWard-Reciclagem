@@ -3,6 +3,7 @@ package paineis;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -10,13 +11,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import classes.Clientes;
+import classes.Estabelecimentos;
+
 public class PainelEstabelecimento extends JPanel{
 	private JLabel jlEstabelecimento, jlNome, jlLocal, jlTelefone, jlCEP, jlCNPJ;
 	private JTextField jtfNome, jtfLocal, jtfTelefone, jtfCEP, jtfCNPJ;
 	private JButton jbCadastrar;
+	private List<Clientes> clientes;
 
-	public PainelEstabelecimento() {
+	public PainelEstabelecimento(List<Clientes> clientes) {
 		super();
+		this.clientes = clientes;
 		setSize(400,400);
 		setLayout(null);
 		setBackground(Color.pink);
@@ -73,17 +79,17 @@ public class PainelEstabelecimento extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String pessoa, nome, local, telefone, cep, cnpj;
+				String estabelecimento, nome, local, telefone, cep, cnpj;
 				if (!jtfNome.getText().isEmpty() && !jtfLocal.getText().isEmpty() && !jtfTelefone.getText().isEmpty()
 						&& !jtfCEP.getText().isEmpty() && !jtfCNPJ.getText().isEmpty()) {
 					// entrada
-					pessoa = jlEstabelecimento.getText();
+					estabelecimento = jlEstabelecimento.getText();
 					nome = jtfNome.getText();
 					local = jtfLocal.getText();
 					telefone = jtfTelefone.getText();
 					cep = jtfCEP.getText();
 					cnpj = jtfCNPJ.getText();
-
+					clientes.add(new Estabelecimentos(nome, local, estabelecimento, telefone, cep, cnpj));
 				} else {
 					JOptionPane.showMessageDialog(null, "Preencha todos os campos", "UpWard Reciclagem",
 							JOptionPane.ERROR_MESSAGE);

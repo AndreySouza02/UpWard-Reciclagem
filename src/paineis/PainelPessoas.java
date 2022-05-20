@@ -3,6 +3,7 @@ package paineis;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -10,13 +11,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import classes.Clientes;
+import classes.Empresas;
+import classes.Pessoas;
+
 public class PainelPessoas extends JPanel {
 	private JLabel jlPessoa, jlNome, jlLocal, jlTelefone, jlCEP;
 	private JTextField jtfNome, jtfLocal, jtfTelefone, jtfCEP;
 	private JButton jbCadastrar;
+	private List<Clientes> clientes;
 
-	public PainelPessoas() {
+	public PainelPessoas(List<Clientes> clientes) {
 		super();
+		this.clientes = clientes;
 		setSize(400, 400);
 		setLayout(null);
 		setBackground(Color.cyan.darker());
@@ -76,7 +83,7 @@ public class PainelPessoas extends JPanel {
 					local = jtfLocal.getText();
 					telefone = jtfTelefone.getText();
 					cep = jtfCEP.getText();
-
+					clientes.add(new Pessoas(nome, local, pessoa, telefone, cep));
 				} else {
 					JOptionPane.showMessageDialog(null, "Preencha todos os campos", "UpWard Reciclagem",
 							JOptionPane.ERROR_MESSAGE);

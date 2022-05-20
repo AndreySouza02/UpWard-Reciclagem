@@ -1,13 +1,20 @@
 package classes;
 
+import java.io.Serializable;
+
 public class Materiais {
-	protected String materiais;
+	protected String material;
 	protected String quantidade;
 	
-	public Materiais(String materiais, String quantidade) {
+	public Materiais(String material, String quantidade) {
 		super();
-		this.materiais = materiais;
+		this.material = material;
 		this.quantidade = quantidade;
+	}
+	
+	public String mostrarMaterial() {
+		return "\nMaterial: " + this.material +
+				"\nQuantidade: " + this.quantidade + "\n";
 	}
 	
 }

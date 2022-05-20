@@ -7,4 +7,12 @@ public class ColetaPropria extends Coleta{
 		super(tipoColeta, dataColeta, cep);
 		this.local = local;
 	}
+
+	@Override
+	public String mostrarDados() {
+		// TODO Auto-generated method stub
+		return super.mostrarDados() + "\nLocal: " + this.local;
+	}
+	
+	
 }
