@@ -14,7 +14,7 @@ import javax.swing.JTextArea;
 
 import classes.Clientes;
 import classes.Coleta;
-import classes.ColetaDiscarte;
+import classes.ColetaDescarte;
 import classes.ColetaDivisao;
 import classes.ColetaPropria;
 import classes.ColetaServico;
@@ -23,7 +23,7 @@ import classes.Estabelecimentos;
 import classes.Pessoas;
 
 public class PainelMostrarColetas extends JPanel {
-	private JCheckBox jckPropria, jckDivisao, jckServico, jckDiscarte;
+	private JCheckBox jckPropria, jckDivisao, jckServico, jckDescarte;
 	private JLabel jlMostrar;
 	private JButton jbMostrar;
 	private JTextArea jtaMostrar;
@@ -47,8 +47,8 @@ public class PainelMostrarColetas extends JPanel {
 		jckDivisao.setOpaque(false);
 		jckServico = new JCheckBox("À serviço");
 		jckServico.setOpaque(false);
-		jckDiscarte = new JCheckBox("Discarte");
-		jckDiscarte.setOpaque(false);
+		jckDescarte = new JCheckBox("Descarte");
+		jckDescarte.setOpaque(false);
 		jlMostrar = new JLabel("Mostrar Coletas");
 		jtaMostrar = new JTextArea();
 		jtaMostrar.setEditable(false);
@@ -57,7 +57,7 @@ public class PainelMostrarColetas extends JPanel {
 		
 		//adicionar
 		add(jckPropria);
-		add(jckDiscarte);
+		add(jckDescarte);
 		add(jckDivisao);
 		add(jckServico);
 		add(jlMostrar);
@@ -69,7 +69,7 @@ public class PainelMostrarColetas extends JPanel {
 		jckPropria.setBounds(30,30,85,20);
 		jckDivisao.setBounds(110,30,75,20);
 		jckServico.setBounds(185,30,120,20);
-		jckDiscarte.setBounds(275,30,80,20);
+		jckDescarte.setBounds(275,30,80,20);
 		jbMostrar.setBounds(120,60,135,20);
 		jspMostrar.setBounds(20,90,345,230);
 	}
@@ -90,8 +90,8 @@ public class PainelMostrarColetas extends JPanel {
 					if (jckServico.isSelected()) {
 						if (coleta2 instanceof ColetaServico) jtaMostrar.append(coleta2.mostrarDados());	
 					}
-					if (jckDiscarte.isSelected()) {
-						if (coleta2 instanceof ColetaDiscarte) jtaMostrar.append(coleta2.mostrarDados());	
+					if (jckDescarte.isSelected()) {
+						if (coleta2 instanceof ColetaDescarte) jtaMostrar.append(coleta2.mostrarDados());	
 					}
 				}
 		

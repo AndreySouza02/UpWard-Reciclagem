@@ -3,6 +3,7 @@ package telas;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.HeadlessException;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import arquivo.EscreverLerArquivos;
 import classes.Clientes;
 import classes.Coleta;
 import classes.Materiais;
-import paineis.PainelDiscarte;
+import paineis.PainelDescarte;
 import paineis.PainelDivisao;
 import paineis.PainelEmpresas;
 import paineis.PainelEstabelecimento;
@@ -31,13 +32,14 @@ import paineis.PainelMostrarMateriais;
 import paineis.PainelPessoas;
 import paineis.PainelPropria;
 import paineis.PainelServico;
+import paineis.PainelSobre;
 
 public class TelaUpWard extends JFrame{
 	private JMenuBar jmbBarraMenu;
-	private JMenu jmArquivo, jmCadastro, jmColeta, jmExibir;
+	private JMenu jmArquivo, jmCadastro, jmColeta, jmExibir, jmSobre;
 	private JMenuItem jmiSair, jmiPessoas, jmiEmpresas, jmiEstabelecimentos,
-	jmiPropria, jmiDivisao, jmiServico, jmiDiscarte, jmiMateriais, jmiMostrarClientes,
-	jmiMostrarColetas, jmiMostrarMateriais;
+	jmiPropria, jmiDivisao, jmiServico, jmiDescarte, jmiMateriais, jmiMostrarClientes,
+	jmiMostrarColetas, jmiMostrarMateriais, jmiFeito;
 	private JLabel jlImagem;
 	private ImageIcon imagem;
 	private Container contentPane;
@@ -54,6 +56,11 @@ public class TelaUpWard extends JFrame{
 		iniciarComponentes();
 		criarEventos();
 		lerArquivo();
+		setIcone(this);
+	}
+
+	private void setIcone(JFrame JFrame) {	
+		JFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/Logo2.png")));	
 	}
 
 	private void lerArquivo() {
@@ -63,10 +70,10 @@ public class TelaUpWard extends JFrame{
 		if (arquivos.lerArquivo2() != null) {
 			coleta = arquivos.lerArquivo2();
 		}
-		//if (arquivos.lerArquivo3() != null) {
-		//	materiais = arquivos.lerArquivo3();
+		if (arquivos.lerArquivo3() != null) {
+			materiais = arquivos.lerArquivo3();
 		}
-	//}
+	}
 
 	private void iniciarComponentes() {
 		contentPane = getContentPane();
@@ -78,16 +85,18 @@ public class TelaUpWard extends JFrame{
 		jmCadastro = new JMenu("Cadastro");
 		jmCadastro.setMnemonic('C');
 		jmColeta = new JMenu("Coleta");
-		jmColeta.setMnemonic('E');
+		jmColeta.setMnemonic('O');
 		jmExibir = new JMenu("Exibir");
-		jmExibir.setMnemonic('X');
+		jmExibir.setMnemonic('E');
+		jmSobre = new JMenu("Mais");
+		jmSobre.setMnemonic('M');
 		
 		//itens
 		jmiSair = new JMenuItem("Sair");
 		jmiEmpresas = new JMenuItem("Empresas");
 		jmiEstabelecimentos = new JMenuItem("Estabelecimentos");
 		jmiPessoas = new JMenuItem("Pessoas");
-		jmiDiscarte = new JMenuItem("Discarte");
+		jmiDescarte = new JMenuItem("Descarte");
 		jmiDivisao = new JMenuItem("Divisão de ganhos");
 		jmiPropria = new JMenuItem("Própria");
 		jmiServico = new JMenuItem("À serviço");
@@ -95,6 +104,7 @@ public class TelaUpWard extends JFrame{
 		jmiMostrarClientes = new JMenuItem("Mostrar Clientes");
 		jmiMostrarColetas = new JMenuItem("Mostrar Coletas");
 		jmiMostrarMateriais = new JMenuItem("Mostrar Materiais");
+		jmiFeito = new JMenuItem("Feito Por:");
 		
 		//imagem
 		imagem = new ImageIcon(getClass().getResource("/imagens/Logo.png"));
@@ -105,6 +115,7 @@ public class TelaUpWard extends JFrame{
 		jmbBarraMenu.add(jmCadastro);		
 		jmbBarraMenu.add(jmColeta);		
 		jmbBarraMenu.add(jmExibir);
+		jmbBarraMenu.add(jmSobre);
 		
 		//adicionando os itens
 		jmArquivo.add(jmiSair);
@@ -114,11 +125,12 @@ public class TelaUpWard extends JFrame{
 		jmColeta.add(jmiPropria);
 		jmColeta.add(jmiServico);
 		jmColeta.add(jmiDivisao);
-		jmColeta.add(jmiDiscarte);
+		jmColeta.add(jmiDescarte);
 		jmColeta.add(jmiMateriais);
 		jmExibir.add(jmiMostrarClientes);
 		jmExibir.add(jmiMostrarColetas);
 		jmExibir.add(jmiMostrarMateriais);
+		jmSobre.add(jmiFeito);
 		
 		//adicionando e dimensionando imagem
 		add(jlImagem);
@@ -134,7 +146,7 @@ public class TelaUpWard extends JFrame{
 				int resposta = JOptionPane.showConfirmDialog(null, "Deseja sair e salvar o programa", "UpWard Reciclagem",
 				JOptionPane.YES_NO_OPTION);
 				if(resposta == 0) {
-					arquivos.escreverArquivos(clientes, coleta);
+					arquivos.escreverArquivos(clientes, coleta, materiais);
 				}
 				System.exit(0);
 				
@@ -211,11 +223,11 @@ public class TelaUpWard extends JFrame{
 				contentPane.validate();				
 			}
 		});
-		jmiDiscarte.addActionListener(new ActionListener() {
+		jmiDescarte.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				PainelDiscarte discarte = new PainelDiscarte(coleta);
+				PainelDescarte discarte = new PainelDescarte(coleta);
 				contentPane.removeAll();
 				contentPane.add(discarte);
 				contentPane.validate();
@@ -251,6 +263,17 @@ public class TelaUpWard extends JFrame{
 				contentPane.validate();				
 			}
 		});
+		jmiFeito.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				PainelSobre sobre = new PainelSobre();
+				contentPane.removeAll();
+				contentPane.add(sobre);
+				contentPane.validate();				
+			}
+		});
+	
 	}
 
 }

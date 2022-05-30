@@ -2,7 +2,7 @@ package classes;
 
 import java.io.Serializable;
 
-public class Materiais {
+public class Materiais implements Serializable {
 	protected String material;
 	protected String quantidade;
 	

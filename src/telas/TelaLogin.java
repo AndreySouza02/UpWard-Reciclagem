@@ -5,9 +5,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,118 +15,92 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import arquivo.EscreverLerArquivos;
-import classes.Cadastro;
-
 public class TelaLogin extends JFrame {
-	private JTextField jtfLoguin;
-	private JLabel jlSenha, jlLoguin;
-	private JButton jbLogar, jbCancelar, jbCadastrar;
+	private JTextField jtfLogin; 
+	private JLabel jlSenha, jlLogin, jlImagem; 
+	private JButton jbLogar, jbCancelar;
 	private JPasswordField jpfSenha;
-	private List<Cadastro> cadastros = new ArrayList<>();
-	private static TelaLogin frame; 
-	
-	public TelaLogin() {
-		super();
-		iniciarComponentes(); // metodos q serao utilizados para def carac visuais e os eventos neles.
-		criarEventos();
-		abrirArquivo();
-	}
+	private ImageIcon imagem;
+	private static TelaLogin frame;
 
-	private void abrirArquivo() {
-		EscreverLerArquivos arquivos = new EscreverLerArquivos();
-		if (arquivos.lerArquivosCadastrados() != null) {
-			cadastros = arquivos.lerArquivosCadastrados();
-		}
+	public TelaLogin(){   
 		
+		inicializarComponentes(); 
+		definirEventos(); 
+		getContentPane().setBackground(Color.LIGHT_GRAY);
+		setIcon(this);
+}
+
+	private void setIcon(JFrame JFrame) {
+		JFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/Login.png")));	
 	}
 
-	private void iniciarComponentes() {
-		setTitle("Login"); // define titulo
-		setSize(250, 230); // define dimençoes do frame (comprimento e largura )
-		setLayout(null); // define como nulo o gerenciador de layout com o metodo setLayout
-		jtfLoguin = new JTextField(5); // criação de objetos e o num define o comprim das caixas de texto
-		jpfSenha = new JPasswordField(5);// determina o numero de caracter que deverá ter a senha
-		jlSenha = new JLabel("Senha: "); // cria objetos de labels e botoes c/ seus titulos
-		jlLoguin = new JLabel("Login: ");
-		jbLogar = new JButton("Logar");
-		jbCancelar = new JButton("Cancelar");
-		jbCadastrar = new JButton("Cadastrar");
-		jbCadastrar.setForeground(Color.blue);
+	private void inicializarComponentes() {
+		setTitle("UpWard Login"); // define titulo
+		setSize(500, 300); 
+		setLayout(null); 
+		jtfLogin = new JTextField(5);
+		jpfSenha = new JPasswordField(5);
+		jlSenha = new JLabel("Senha: "); 
+		jlLogin = new JLabel("Login: ");
+		jbLogar = new JButton("LOGAR");
+		jbCancelar = new JButton("CANCELAR");
+		imagem = new ImageIcon(getClass().getResource("/imagens/Logo.png"));
+		jlImagem = new JLabel(imagem);
 
-		add(jtfLoguin); // os componentes graficos são adicionados ao frame como um quebra cabeças
-		add(jlSenha); // estes são adicionados ao que foi definido anteriormente
-		add(jlLoguin);
+		jtfLogin.setBounds(100, 60, 120, 25);
+		jlLogin.setBounds(30, 60, 80, 25);
+		jlSenha.setBounds(30, 105, 80, 25);
+		jpfSenha.setBounds(100, 105, 120, 25);
+		jbLogar.setBounds(20, 150, 100, 25);
+		jbCancelar.setBounds(125, 150, 100, 25);
+		jlImagem.setBounds(200, -20, 300, 300);
+
+		add(jtfLogin); 
+		add(jlSenha); 
+		add(jlLogin);
 		add(jbLogar);
 		add(jbCancelar);
-		add(jbCadastrar);
 		add(jpfSenha);
-
-		jtfLoguin.setBounds(100, 30, 120, 25);
-		jlLoguin.setBounds(30, 30, 80, 25);
-		jlSenha.setBounds(30, 75, 80, 25);
-		jpfSenha.setBounds(100, 75, 120, 25);
-		jbLogar.setBounds(20, 120, 100, 25);
-		jbCancelar.setBounds(125, 120, 100, 25);
-		jbCadastrar.setBounds(70, 150, 100, 25);
+		add(jlImagem);
 		
 	}
 
-	private void criarEventos() {
+	private void definirEventos() {
 		jbLogar.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				String senha = String.valueOf(jpfSenha.getPassword()); // o método getPassword retorna uma matriz de caracter eo o metodo valueOf convert em uma String
-				boolean achou = false;
-				for (Cadastro cadastro : cadastros) {
-					if (jtfLoguin.getText().equals(cadastro.getLogin()) && senha.equals(cadastro.getSenha())) { // testa se a senha esta correta e o loguin
-						 frame.setVisible(false); 
-						TelaUpWard transportadora = new TelaUpWard("UpWard Reciclagem"); // Este método cria a tela(frame)do menu principal
-						transportadora.setVisible(true);
-						achou = true;
-						break;
-					} 
-				}
-				if (!achou) {
-					JOptionPane.showMessageDialog(null, "Loguin ou senha incorretos");
+			public void actionPerformed(ActionEvent arg0) {
+				String senha = String.valueOf(jpfSenha.getPassword()); 
+				if (jtfLogin.getText().equals("EliasNeves") && senha.equals("68722")) { 																					
+					frame.setVisible(false);
+					TelaUpWard tela2 = new TelaUpWard("UpWard Reciclagem");
+					tela2.setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(null, "Login ou senha incorretos");
 				}
 			}
-		
 		});
-
+		
 		jbCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0); // sai do programa
-
-			}
-		});
-		
-		jbCadastrar.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.setVisible(false);
-				TelaCadastrar cadastrar = new TelaCadastrar(cadastros);
-				cadastrar.setVisible(true);
-				
+				System.exit(0);
 			}
 		});
 	}
 
-	// metodo principal
-
+//metodo principal  
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // encerra aplicação qd a janela é fechada
-				Dimension tela = Toolkit.getDefaultToolkit().getScreenSize(); // metodos que manipulam dimensão da tela
-																				// do ambiente gráfico
+				frame = new TelaLogin();
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				Dimension tela = Toolkit.getDefaultToolkit().getScreenSize(); 
 				frame.setLocation((tela.width - (frame).getSize().width) / 2,
 						(tela.height - frame.getSize().height) / 2); // centraliza janela coluna e a janela linha
 				frame.setVisible(true);
 			}
-
 		});
 	}
+
 }
